@@ -1,1 +1,41 @@
-<h1>Hello World</h1>
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Numeric Conversions</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<center>
+			<h2>Numeric Conversions</h2>
+			<p>Type any number and get phrase of that number </p>
+			<form name="form" method="POST" id="convertForm">
+				<input type="text" name="number" value="" placeholder="type a number"/>
+				<br/><br/>
+				<input type="submit" value="Save"/>
+			</form>
+			<hr />
+			<h4 id="converted_number" style="visibility: hidden;"></h4>
+		</center>
+
+		<script>
+		$(document).ready(function(){
+			$('#convertForm').on('submit', (e)=>{
+				e.preventDefault()
+				$.ajax({
+					url: '/convert',
+					type: 'POST',
+					data: {"number": e.target.number.value},
+					dataType: 'json',
+					success: (data) => appendNumber(data)
+				})
+			})
+
+			function appendNumber(data){
+				let convertField = $('#converted_number')
+				convertField.text(data.response)
+				convertField.css('visibility','visible')
+			}
+		})
+		</script>
+	</body>
+</html>
