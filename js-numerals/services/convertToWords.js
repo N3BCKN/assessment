@@ -1,10 +1,10 @@
 const range = {
-    "TEN": 10,
-    "ONE_HUNDRED": 100,
-    "ONE_THOUSAND": 1000,
-    "ONE_MILLION": 1000000,
-    "ONE_BILLION": 1000000000,
-    "ONE_TRILLION": 1000000000000
+    "TEN"          : 10,
+    "ONE_HUNDRED"  : 100,
+    "ONE_THOUSAND" : 1000,
+    "ONE_MILLION"  : 1000000,
+    "ONE_BILLION"  : 1000000000,
+    "ONE_TRILLION" : 1000000000000
 }
 
 
@@ -72,11 +72,31 @@ function createWords(number) {
     return createWords(turns, words)
 }
 
+function appendConjuction(words, number) {
+
+    if (number > 100 && !(number < 1000 && number % 100 == 0) && !(number % 1000 == 0)) {
+        words = words.split(' ')
+        if (number % 100 == 0) {
+            words.splice(words.length - 2, 0, 'and')
+        } else {
+            words.splice(words.length - 1, 0, 'and')
+        }
+        return words.join(' ')
+    }
+
+    return words
+}
+
 module.exports = function(number) {
 
-    // remove decimals
+    // remove if decimals
     number = removeDecimals(number)
 
-    //generate words
-    return createWords(number)
+    // generate words
+    let words = createWords(number)
+
+    // add conjuction
+    words = appendConjuction(words, number)
+
+    return words
 }
