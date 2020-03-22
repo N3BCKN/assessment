@@ -1,4 +1,4 @@
-const convertToWords = require('../services/convertToWords')
+const convertToWords = require('../../services/convertToWords')
 
 test('should return a type of string', () => {
     expect(typeof convertToWords(1234)).toBe("string")

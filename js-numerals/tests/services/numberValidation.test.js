@@ -1,4 +1,4 @@
-const {  isNotValid  } = require('../services/numberValidation')
+const {  isNotValid  } = require('../../services/numberValidation')
 
 test('should return string values as true', () => {
     expect(isNotValid("Lorem Ipsum").isError).toBe(true)
