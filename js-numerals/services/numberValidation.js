@@ -7,7 +7,7 @@ module.exports.isNotValid = function(number) {
     if (isNaN(number)) {
         error.errorMsg = "Please provide a valid number."
         return error
-    } else if (number == null) {
+    } else if (number == null || number == "") {
         error.errorMsg = "Field cannot be empty." 
         return error
     } else if (number.length > 12) {

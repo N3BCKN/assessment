@@ -13,8 +13,11 @@ app.use(bodyParser.urlencoded({
 
 app.use('/', require('./routes/conversions'))
 
+if(!module.parent){
+	app.listen(port, (err) => {
+	    if (err) throw err
+	    console.log(`Server is running on port ${port}`)
+	})
+}
 
-app.listen(port, (err) => {
-    if (err) throw err
-    console.log(`Server is running on port ${port}`)
-})
+module.exports = app

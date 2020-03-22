@@ -13,28 +13,38 @@
 				<br/><br/>
 				<input type="submit" value="Save"/>
 			</form>
-			<hr />
+			<hr style="width: 50%"/>
 			<h4 id="converted_number" style="visibility: hidden;"></h4>
 		</center>
 
 		<script>
-		$(document).ready(function(){
-			$('#convertForm').on('submit', (e)=>{
-				e.preventDefault()
-				$.ajax({
-					url: '/convert',
-					type: 'POST',
-					data: {"number": e.target.number.value},
-					dataType: 'json',
-					success: (data) => appendNumber(data)
-				})
-			})
+		$(document).ready(function() {
+		    $('#convertForm').on('submit', (e) => {
+		        e.preventDefault()
+		        $.ajax({
+		            url: '/convert',
+		            type: 'POST',
+		            data: {
+		                "number": e.target.number.value
+		            },
+		            dataType: 'json',
+		            success: data => appendNumber(data),
+		            error: data => appendNumber(data, true)
+		        })
+		    })
 
-			function appendNumber(data){
-				let convertField = $('#converted_number')
-				convertField.text(data.response)
-				convertField.css('visibility','visible')
-			}
+		    function appendNumber(data, error = null) {
+		        let convertField = $('#converted_number')
+		        if (error) {
+		            convertField.text(data.responseJSON.response)
+		            convertField.css('color', 'red')
+		        } else {
+		            convertField.text(data.response)
+		            convertField.css('color', 'black')
+		        }
+
+		        convertField.css('visibility', 'visible')
+		    }
 		})
 		</script>
 	</body>

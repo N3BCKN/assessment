@@ -14,7 +14,8 @@ router.post('/convert', (req, res) => {
     let  words = ''
 
     if (notValidatedNumber) {
-        return res.json({
+        return res
+        .status(400).json({
             "response": notValidatedNumber.errorMsg
         })
     }
