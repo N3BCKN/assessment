@@ -1,0 +1,19 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "## Instructions",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "devmode": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jest": "^25.2.7",
+    "nodemon": "^2.0.2",
+    "supertest": "^4.0.2"
+  }
+}
