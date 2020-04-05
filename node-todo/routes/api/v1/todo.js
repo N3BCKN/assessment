@@ -5,16 +5,16 @@ const {validateTodos} = require('../../../services/validations')
 
 //@route api/v1/todos
 //@param GET
+//@desc fetch collection of todo tasks
 //@access public
 router.get('/todos', (req,res) =>{
-    fs.readFile('todos.json', 'utf8',(err, data) =>{
-        if (err) throw err
-        res.send(JSON.parse(data)) 
-    })
+	const JSONdata = JSON.parse(fs.readFileSync('todos.json', 'utf8'))
+	res.json(JSONdata)
 })
 
 //@route api/v1/todos
 //@param POST
+//@desc create new todo task
 //@access public
 router.post('/todos', (req,res)=>{
 	const {text, priority} = req.body
@@ -29,11 +29,12 @@ router.post('/todos', (req,res)=>{
 	const JSONdata = JSON.parse(fs.readFileSync('todos.json', 'utf8'))
 
 	const lastID   = JSONdata.todos[JSONdata.todos.length -1].id
+	const taskPriority = (priority ? priority : 3)
 	const task     = 
 	{
 		"id"       : lastID +1,
 		"text"     : text,
-		"prorioty" : 3,
+		"prorioty" : taskPriority,
 		"done"     : false
 	}
 
@@ -47,6 +48,7 @@ router.post('/todos', (req,res)=>{
 
 //@route api/v1/todos/:id
 //@param GET
+//@desc fetch single todo task by id
 //@access public
 router.get('/todos/:id', (req,res)=>{
 	const id = req.params.id
@@ -64,6 +66,7 @@ router.get('/todos/:id', (req,res)=>{
 
 //@route api/v1/todos/:id
 //@param PUT
+//@desc update todo task
 //@access public
 router.put('/todos/:id', (req,res)=>{
 	const {text, priority, done} = req.body
@@ -77,6 +80,7 @@ router.put('/todos/:id', (req,res)=>{
 		const JSONdata = JSON.parse(fs.readFileSync('todos.json', 'utf8'))
 		JSONdata.todos.forEach((todo, index) => {
 		if(todo.id == id){
+
 			JSONdata.todos[index].text     = text
 			JSONdata.todos[index].priority = priority
 			JSONdata.todos[index].done     = done
@@ -94,6 +98,7 @@ router.put('/todos/:id', (req,res)=>{
 
 //@route api/v1/todos/:id
 //@param DELETE
+//@desc delete todo task
 //@access public
 router.delete('/todos/:id', (req,res)=>{
 	const id = req.params.id

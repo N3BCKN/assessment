@@ -1,0 +1,3 @@
+- todos.json file used as a mocked database records
+- server side validations in services/validation file
+- all git records could be found in branch /todo merget letter on to master branch of this fork
